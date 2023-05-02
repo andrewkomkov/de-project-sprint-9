@@ -51,7 +51,7 @@ spec:
               value: "6432"
             - name: PG_WAREHOUSE_USER
               value: "sprint9dwh"
-          image: andrewkomkov/de_proj9_cdm:02052023
+          image: andrewkomkov/de_proj9_cdm:latest
           name: cdm-service-container
           ports:
             - containerPort: 5000

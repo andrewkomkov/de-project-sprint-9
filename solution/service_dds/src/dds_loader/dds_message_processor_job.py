@@ -261,28 +261,31 @@ class DdsMessageProcessor:
                 # text_file.close()
 
                 ### CDM
-                self.cdm_user_category_counters(message)
-                self.cdm_user_product_counters(message)
+                try:
+                    self.cdm_user_category_counters(message)
+                    self.cdm_user_product_counters(message)
 
-                ### Hubs
-                self.put_category_hub(message)
-                self.put_order_hub(message)
-                self.put_product_hub(message)
-                self.put_restaurant_hub(message)
-                self.put_user_hub(message)
+                    ### Hubs
+                    self.put_category_hub(message)
+                    self.put_order_hub(message)
+                    self.put_product_hub(message)
+                    self.put_restaurant_hub(message)
+                    self.put_user_hub(message)
 
-                ### Satellits
-                self.put_order_cost_satellit(message)
-                self.put_order_status_satellit(message)
-                self.put_product_name_satellit(message)
-                self.put_restaurant_name_satellit(message)
-                self.put_user_names_satellit(message)
+                    ### Satellits
+                    self.put_order_cost_satellit(message)
+                    self.put_order_status_satellit(message)
+                    self.put_product_name_satellit(message)
+                    self.put_restaurant_name_satellit(message)
+                    self.put_user_names_satellit(message)
 
-                ### Links
-                self.put_order_product_link(message)
-                self.put_order_user_link(message)
-                self.put_product_category_link(message)
-                self.put_product_restaurant_link(message)
+                    ### Links
+                    self.put_order_product_link(message)
+                    self.put_order_user_link(message)
+                    self.put_product_category_link(message)
+                    self.put_product_restaurant_link(message)
+                except:
+                    pass
                 
 
         # Пишем в лог, что джоб успешно завершен.

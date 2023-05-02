@@ -40,13 +40,11 @@ class CdmMessageProcessor:
                 break
             if message.get('mart'):
                               
-               object_id = message.get('mart')
-
-               text_file = open(f"/Users/andrewkomkov/PycharmProjects/yandex_de/de-project-sprint-9/cdm_test/cdm{object_id}message.json", "w")
-
-               res = text_file.write(json.dumps(message))
-               print(res)
-               text_file.close()
+            #    object_id = message.get('mart')
+            #    text_file = open(f"/Users/andrewkomkov/PycharmProjects/yandex_de/de-project-sprint-9/cdm_test/cdm{object_id}message.json", "w")
+            #    res = text_file.write(json.dumps(message))
+            #    print(res)
+            #    text_file.close()
 
                self.update_cdm(message)
                 

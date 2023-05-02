@@ -59,7 +59,7 @@ spec:
               value: "Qwert001"
             - name: REDIS_PORT
               value: "6380"
-          image: andrewkomkov/de_proj9_stg:02052023
+          image: andrewkomkov/de_proj9_stg:latest
           name: stg-service-container
           ports:
             - containerPort: 5000
