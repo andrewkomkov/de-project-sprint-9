@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dds-service
+  name: dds-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: dds-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: dds-service
+    spec:
+      containers:
+        - env:
+            - name: DEBUG
+              value: "False"
+            - name: FLASK_APP
+              value: dds_service
+            - name: KAFKA_CONSUMER_GROUP
+              value: "main"
+            - name: KAFKA_CONSUMER_PASSWORD
+              value: "producer_consumer"
+            - name: KAFKA_CONSUMER_USERNAME
+              value: "producer_consumer"
+            - name: KAFKA_DESTINATION_TOPIC
+              value: "cdm-service-orders"
+            - name: KAFKA_HOST
+              value: "rc1a-1915iog81pr0j1sc.mdb.yandexcloud.net"
+            - name: KAFKA_PORT
+              value: "9091"
+            - name: KAFKA_SOURCE_TOPIC
+              value: "stg-service-orders"
+            - name: PG_WAREHOUSE_DBNAME
+              value: "sprint9dwh"
+            - name: PG_WAREHOUSE_HOST
+              value: "rc1b-v9fvv9q03peguu4n.mdb.yandexcloud.net"
+            - name: PG_WAREHOUSE_PASSWORD
+              value: "sprint9dwh"
+            - name: PG_WAREHOUSE_PORT
+              value: "6432"
+            - name: PG_WAREHOUSE_USER
+              value: "sprint9dwh"
+          image: andrewkomkov/de_proj9_dds:02052023
+          name: dds-service-container
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+status: {}

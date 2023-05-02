@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: stg-service
+  name: stg-service
+spec:
+  ports:
+    - name: "5011"
+      port: 5011
+      targetPort: 5000
+  selector:
+    io.kompose.service: stg-service
+status:
+  loadBalancer: {}

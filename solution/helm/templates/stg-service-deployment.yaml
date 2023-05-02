@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: stg-service
+  name: stg-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: stg-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: stg-service
+    spec:
+      containers:
+        - env:
+            - name: DEBUG
+              value: "False"
+            - name: FLASK_APP
+              value: stg_service
+            - name: KAFKA_CONSUMER_GROUP
+              value: "main"
+            - name: KAFKA_CONSUMER_PASSWORD
+              value: "producer_consumer"
+            - name: KAFKA_CONSUMER_USERNAME
+              value: "producer_consumer"
+            - name: KAFKA_DESTINATION_TOPIC
+              value: "stg-service-orders"
+            - name: KAFKA_HOST
+              value: "rc1a-1915iog81pr0j1sc.mdb.yandexcloud.net"
+            - name: KAFKA_PORT
+              value: "9091"
+            - name: KAFKA_SOURCE_TOPIC
+              value: "order-service_orders"
+            - name: PG_WAREHOUSE_DBNAME
+              value: "sprint9dwh"
+            - name: PG_WAREHOUSE_HOST
+              value: "rc1b-v9fvv9q03peguu4n.mdb.yandexcloud.net"
+            - name: PG_WAREHOUSE_PASSWORD
+              value: "sprint9dwh"
+            - name: PG_WAREHOUSE_PORT
+              value: "6432"
+            - name: PG_WAREHOUSE_USER
+              value: "sprint9dwh"
+            - name: REDIS_HOST
+              value: "c-c9q1d4o7g6rm5ef2k1ok.rw.mdb.yandexcloud.net"
+            - name: REDIS_PASSWORD
+              value: "Qwert001"
+            - name: REDIS_PORT
+              value: "6380"
+          image: andrewkomkov/de_proj9_stg:02052023
+          name: stg-service-container
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+status: {}
