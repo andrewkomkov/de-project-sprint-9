@@ -13,6 +13,7 @@ class KafkaProducer:
         params = {
             'bootstrap.servers': f'{host}:{port}',
             'security.protocol': 'SASL_SSL',
+            # 'ssl.ca.location': '/Users/andrewkomkov/PycharmProjects/yandex_de/sprint-9-sample-service/CA.pem',
             'ssl.ca.location': cert_path,
             'sasl.mechanism': 'SCRAM-SHA-512',
             'sasl.username': user,
@@ -25,7 +26,6 @@ class KafkaProducer:
 
     def produce(self, payload: Dict) -> None:
         self.p.produce(self.topic, json.dumps(payload))
-        print(f'!!!!!!!!!!!!!!!!!!!!Отправка сообщения в топик{self.topic}')
         self.p.flush(10)
 
 
@@ -42,6 +42,7 @@ class KafkaConsumer:
         params = {
             'bootstrap.servers': f'{host}:{port}',
             'security.protocol': 'SASL_SSL',
+            # 'ssl.ca.location': '/Users/andrewkomkov/PycharmProjects/yandex_de/sprint-9-sample-service/CA.pem',
             'ssl.ca.location': cert_path,
             'sasl.mechanism': 'SCRAM-SHA-512',
             'sasl.username': user,

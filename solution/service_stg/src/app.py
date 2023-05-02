@@ -4,22 +4,26 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
 
 from app_config import AppConfig
-from dds_loader.dds_message_processor_job import DdsMessageProcessor
-from dds_loader.repository.dds_repository import DdsRepository
+# from sample_app.sample_job import SampleMessageProcessor
+from stg_loader.stg_message_processor_job import StgMessageProcessor
+from stg_loader.repository.stg_repository import StgRepository
 
 app = Flask(__name__)
+
 
 from dotenv import load_dotenv
 load_dotenv()
 
-
+# Заводим endpoint для проверки, поднялся ли сервис.
+# Обратиться к нему можно будет GET-запросом по адресу localhost:5000/health.
+# Если в ответе будет healthy - сервис поднялся и работает.
 @app.get('/health')
-def hello_world():
+def health():
     return 'healthy'
 
 
 if __name__ == '__main__':
-   # Устанавливаем уровень логгирования в Debug, чтобы иметь возможность просматривать отладочные логи.
+    # Устанавливаем уровень логгирования в Debug, чтобы иметь возможность просматривать отладочные логи.
     app.logger.setLevel(logging.ERROR)
 
     # Инициализируем конфиг. Для удобства, вынесли логику получения значений переменных окружения в отдельный класс.
@@ -27,17 +31,15 @@ if __name__ == '__main__':
 
     consumer = config.kafka_consumer()
     producer = config.kafka_producer()
-    stg_repository = DdsRepository
+    redis_client = config.redis_client()
+    stg_repository = StgRepository
     # db = config.pg_warehouse_db()
     _batch_size = 100
     logger = logging.Logger(name='App1')
     # Инициализируем процессор сообщений.
     # Пока он пустой. Нужен для того, чтобы потом в нем писать логику обработки сообщений из Kafka.
     # proc = SampleMessageProcessor(app.logger)
-
-    proc = DdsMessageProcessor(
-        consumer,producer,stg_repository,_batch_size,app.logger
-    )
+    proc = StgMessageProcessor(consumer,producer,redis_client,stg_repository,_batch_size,app.logger)
 
     # Запускаем процессор в бэкграунде.
     # BackgroundScheduler будет по расписанию вызывать функцию run нашего обработчика(SampleMessageProcessor).
@@ -46,4 +48,4 @@ if __name__ == '__main__':
     scheduler.start()
 
     # стартуем Flask-приложение.
-    app.run(debug=False, host='0.0.0.0',port=5005, use_reloader=False)
+    app.run(debug=False, host='0.0.0.0',port=5000, use_reloader=False)

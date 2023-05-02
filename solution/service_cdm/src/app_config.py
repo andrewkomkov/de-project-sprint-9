@@ -5,7 +5,11 @@ from lib.pg import PgConnect
 
 
 class AppConfig:
+    # try:
+    #     CERTIFICATE_PATH = '/Users/andrewkomkov/PycharmProjects/yandex_de/sprint-9-sample-service/CA.pem'
+    # except:
     CERTIFICATE_PATH = '/crt/YandexInternalRootCA.crt'
+    DEFAULT_JOB_INTERVAL = 25
 
     def __init__(self) -> None:
 
