@@ -33,3 +33,6 @@
 Такто всё задеплоисоль
 `helm upgrade --install --atomic solution helm -n c06-andrej-komkov`
 И работает в кубере  - все топики заполняются, витринки считаются, вроде красиво
+
+### Дашборд
+`https://datalens.yandex/xdqtlfujgedun`
