@@ -36,3 +36,7 @@
 
 ### Дашборд
 `https://datalens.yandex/xdqtlfujgedun`
+
+### Вопросы
+
+Вопросов нет, спасибо)
